@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Главная - Чат-бот для записи в поликлинику</title>
+    <link rel="stylesheet" href="static/css/home.css">
+</head>
+<body>
+    <div class="toolbar">
+      <div class="toolbar-container">
+        <a href="{{ url_for('home') }}" class="toolbar-link left-link">Chat-Bot</a>
+        <div class="right-links">
+          {% if session.get('user_id') %}
+            <!-- Если пользователь авторизован -->
+            <a href="{{ url_for('profile') }}" class="toolbar-link">Профиль</a>
+            <a href="{{ url_for('chat') }}" class="toolbar-link">Чат</a>
+            <a href="{{ url_for('logout') }}" class="toolbar-link">Выход</a>
+          {% else %}
+            <!-- Если пользователь не авторизован -->
+            <a href="{{ url_for('login') }}" class="toolbar-link">Вход</a>
+            <a href="{{ url_for('register') }}" class="toolbar-link">Регистрация</a>
+          {% endif %}
+        </div>
+      </div>
+    </div>
+
+
+    <!-- Основной контент -->
+    <div class="main-container">
+        <div class="main-content">
+            <h1>Добро пожаловать в чат-бот для записи в поликлинику!</h1>
+            <p>
+                Этот чат-бот поможет вам быстро и удобно записаться на прием к врачу,
+                получить предварительный диагноз по введенным симптомам и рекомендации.
+            </p>
+            <p>
+                Основные функции чат-бота:
+            </p>
+            <ul>
+                <li>Запись к врачу в несколько кликов.</li>
+                <li>Анализ симптомов и рекомендация подходящего специалиста.</li>
+                <li>Управление расписанием и сохранение истории консультаций.</li>
+            </ul>
+            <p>
+                Используйте чат-бот, чтобы экономить время и получать квалифицированную помощь без лишних сложностей.
+            </p>
+            <button href="{{ url_for('register') }}" class="start-btn">Начать сейчас</button>
+        </div>
+    </div>
+</body>
+</html>

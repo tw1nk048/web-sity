@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Профиль</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/profile.css') }}">
+</head>
+<body>
+    <div class="toolbar">
+      <div class="toolbar-container">
+        <a href="{{ url_for('home') }}" class="toolbar-link left-link">Chat-Bot</a>
+        <div class="right-links">
+          <a href="{{ url_for('profile') }}" class="toolbar-link">Профиль</a>
+            <a href="{{ url_for('chat') }}" class="toolbar-link">Чат</a>
+          <a href="{{ url_for('logout') }}" class="toolbar-link">Выход</a>
+        </div>
+      </div>
+    </div>
+
+    <!-- Контейнер профиля -->
+    <div class="profile-container">
+        {% if user and details %}
+        <div class="profile-box">
+            <h1>Профиль - {{ details[1] if details else user[1] }}</h1>
+            <div class="profile-details">
+                <p><strong>Тип пользователя:</strong> {{ 'Пациент' if user[2] == 'patient' else 'Врач' }}</p>
+
+                {% if user[2] == 'patient' %}
+                <p><strong>Фамилия:</strong> {{ details[0] }}</p>
+                <p><strong>Имя:</strong> {{ details[1] }}</p>
+                <p><strong>Отчество:</strong> {{ details[2] }}</p>
+                <p><strong>Полис ОМС:</strong> {{ details[3] }}</p>
+                <p><strong>Дата рождения:</strong> {{ details[4] }}</p>
+                {% elif user[2] == 'doctor' %}
+                <p><strong>Фамилия:</strong> {{ details[0] }}</p>
+                <p><strong>Имя:</strong> {{ details[1] }}</p>
+                <p><strong>Отчество:</strong> {{ details[2] }}</p>
+                <p><strong>Специальность:</strong> {{ details[3] }}</p>
+                <p><strong>Стаж:</strong> {{ details[4] }} лет</p>
+                {% endif %}
+
+                <p><strong>Логин:</strong> {{ user[1] }}</p>
+            </div>
+        </div>
+        {% else %}
+        <div class="profile-box">
+            <h1>Профиль не найден</h1>
+            <p>Вы не авторизованы. <a href="{{ url_for('login') }}">Войти</a></p>
+        </div>
+        {% endif %}
+    </div>
+</body>
+</html>

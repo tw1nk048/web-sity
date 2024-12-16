@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Авторизация</title>
+  <link rel="stylesheet" href="static/css/login.css">
+</head>
+<body>
+  <!-- Верхняя панель -->
+  <div class="toolbar">
+      <div class="toolbar-container">
+        <a href="{{ url_for('home') }}" class="toolbar-link left-link">Chat-Bot</a>
+        <div class="right-links">
+          {% if session.get('user_id') %}
+            <!-- Если пользователь авторизован -->
+            <a href="{{ url_for('profile') }}" class="toolbar-link">Профиль</a>
+          <a href="{{ url_for('chat') }}" class="toolbar-link">Чат</a>
+            <a href="{{ url_for('logout') }}" class="toolbar-link">Выход</a>
+          {% else %}
+            <!-- Если пользователь не авторизован -->
+            <a href="{{ url_for('login') }}" class="toolbar-link">Вход</a>
+            <a href="{{ url_for('register') }}" class="toolbar-link">Регистрация</a>
+          {% endif %}
+        </div>
+      </div>
+  </div>
+
+
+  <!-- Контейнер авторизации -->
+  <div class="login-container">
+    <div class="login-box">
+      <h1>Вход в систему</h1>
+      <form method="POST" action="/login">
+        <div class="input-group">
+          <label for="username">Логин</label>
+          <input type="text" id="username" name="username" placeholder="Введите логин" required>
+        </div>
+        <div class="input-group">
+          <label for="password">Пароль</label>
+          <input type="password" id="password" name="password" placeholder="Введите пароль" required>
+        </div>
+        <button type="submit" class="login-btn">Войти</button>
+      </form>
+      <p class="register-link">Нет аккаунта? <a href="/register">Зарегистрироваться</a></p>
+    </div>
+  </div>
+</body>
+</html>

@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Чат-бот - Запись в поликлинику</title>
+    <link rel="stylesheet" href="static/css/chat.css">
+</head>
+<body>
+    <div class="toolbar">
+      <div class="toolbar-container">
+        <a href="{{ url_for('home') }}" class="toolbar-link left-link">Chat-Bot</a>
+        <div class="right-links">
+          {% if session.get('user_id') %}
+            <!-- Если пользователь авторизован -->
+            <a href="{{ url_for('profile') }}" class="toolbar-link">Профиль</a>
+            <a href="{{ url_for('chat') }}" class="toolbar-link">Чат</a>
+            <a href="{{ url_for('logout') }}" class="toolbar-link">Выход</a>
+          {% else %}
+            <!-- Если пользователь не авторизован -->
+            <a href="{{ url_for('login') }}" class="toolbar-link">Вход</a>
+            <a href="{{ url_for('register') }}" class="toolbar-link">Регистрация</a>
+          {% endif %}
+        </div>
+      </div>
+    </div>
+
+    {% if session.get('user_id') %}
+    <!-- Чат-бот только для авторизованных пользователей -->
+    <div class="chat-container">
+        <div class="chat-box">
+            <div class="chat-header">
+                <h2>Чат-бот</h2>
+            </div>
+            <div class="chat-content" id="chat-content">
+                <!-- Сообщения будут добавляться сюда -->
+                <div class="bot-message">Добро пожаловать! Чем могу помочь?</div>
+            </div>
+            <div class="chat-input-box">
+                <input type="text" id="chat-input" placeholder="Введите сообщение..." />
+                <button onclick="sendMessage()">Отправить</button>
+            </div>
+        </div>
+    </div>
+    {% else %}
+      <div class="login-prompt">
+        <p>Для использования чата вам необходимо <a href="{{ url_for('login') }}">войти</a>.</p>
+      </div>
+    {% endif %}
+
+    <script>
+        const chatContent = document.getElementById('chat-content');
+        const chatInput = document.getElementById('chat-input');
+
+        function sendMessage() {
+            const userMessage = chatInput.value.trim();
+            if (userMessage === '') return;
+
+            // Добавление сообщения пользователя
+            const userMsgDiv = document.createElement('div');
+            userMsgDiv.className = 'user-message';
+            userMsgDiv.innerText = userMessage;
+            chatContent.appendChild(userMsgDiv);
+
+            // Добавление ответа бота
+            const botMsgDiv = document.createElement('div');
+            botMsgDiv.className = 'bot-message';
+            botMsgDiv.innerText = 'Спасибо за сообщение! Мы обрабатываем ваш запрос...';
+            chatContent.appendChild(botMsgDiv);
+
+            chatInput.value = '';
+            chatContent.scrollTop = chatContent.scrollHeight;
+        }
+    </script>
+</body>
+</html>

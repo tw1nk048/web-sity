@@ -1,0 +1,152 @@
+/* Общие стили */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Arial', sans-serif;
+}
+
+body {
+  background: linear-gradient(135deg, #4caaaf, #81c784);
+  color: #fff;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+/* Верхняя панель */
+.toolbar {
+  width: 100%;
+  background: #333;
+  padding: 10px 0;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  position: sticky;
+  top: 0;
+  z-index: 10;
+}
+
+.toolbar-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 0 20px;
+}
+
+.toolbar-link {
+  color: #fff;
+  text-decoration: none;
+  font-size: 18px;
+  font-weight: bold;
+  padding: 5px 10px;
+  transition: background 0.3s ease, color 0.3s ease;
+}
+
+.toolbar-link:hover {
+  background: #4caf50;
+  color: #fff;
+  border-radius: 5px;
+}
+
+/* Общий стиль для чат-бота */
+.chat-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 100px 20px;
+    max-width: 800px;
+    width: 100%;
+}
+
+.chat-box {
+    width: 100%;
+    max-width: 700px;
+    background: #ffffff;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    display: flex;
+    flex-direction: column;
+}
+
+.chat-header {
+    padding: 20px;
+    background: #4caf50;
+    color: #ffffff;
+    border-radius: 10px 10px 0 0;
+    text-align: center;
+    font-size: 22px;
+    font-weight: bold;
+}
+
+.chat-content {
+    flex-grow: 1;
+    padding: 20px;
+    overflow-y: auto;
+    max-height: 500px;
+    background: #f9f9f9;
+    border-top: 2px solid #ddd;
+    border-bottom: 2px solid #ddd;
+    display: flex;
+    flex-direction: column;
+}
+
+.chat-content div {
+    margin: 15px 0;
+    padding: 15px;
+    border-radius: 10px;
+    font-size: 16px;
+    line-height: 1.6;
+    max-width: 75%;
+    word-wrap: break-word;
+}
+
+/* Сообщения системы (слева) */
+.bot-message {
+    background: #e8f5e9;
+    color: #333;
+    align-self: flex-start;
+    text-align: left;
+}
+
+/* Сообщения пользователя (справа) */
+.user-message {
+    background: #d1e9f7;
+    color: #333;
+    align-self: flex-end;
+    text-align: right;
+}
+
+/* Ввод сообщений */
+.chat-input-box {
+    display: flex;
+    padding: 15px;
+    border-top: 2px solid #ddd;
+    background: #ffffff;
+    border-radius: 0 0 10px 10px;
+}
+
+.chat-input-box input {
+    flex-grow: 1;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    padding: 15px;
+    font-size: 16px;
+}
+
+.chat-input-box button {
+    background: #4caf50;
+    color: #ffffff;
+    border: none;
+    border-radius: 5px;
+    padding: 15px 20px;
+    font-size: 16px;
+    margin-left: 10px;
+    cursor: pointer;
+    transition: background 0.3s ease;
+}
+
+.chat-input-box button:hover {
+    background: #388e3c;
+}

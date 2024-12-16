@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Регистрация</title>
+  <link rel="stylesheet" href="static/css/register.css">
+</head>
+<body>
+  <div class="toolbar">
+    <div class="toolbar-container">
+      <a href="{{ url_for('home') }}" class="toolbar-link left-link">Chat-Bot</a>
+      <div class="right-links">
+        {% if session.get('user_id') %}
+          <!-- Если пользователь авторизован -->
+          <a href="{{ url_for('profile') }}" class="toolbar-link">Профиль</a>
+          <a href="{{ url_for('chat') }}" class="toolbar-link">Чат</a>
+          <a href="{{ url_for('logout') }}" class="toolbar-link">Выход</a>
+        {% else %}
+          <!-- Если пользователь не авторизован -->
+          <a href="{{ url_for('login') }}" class="toolbar-link">Вход</a>
+          <a href="{{ url_for('register') }}" class="toolbar-link">Регистрация</a>
+        {% endif %}
+      </div>
+    </div>
+  </div>
+
+
+  <!-- Контейнер регистрации -->
+  <div class="register-container">
+    <div class="register-box">
+      <h1>Регистрация</h1>
+      <form id="registerForm" method="POST" action="/register">
+        <!-- Выбор типа пользователя -->
+        <div class="input-group">
+          <label for="role">Выберите, кто вы:</label>
+          <select id="role" name="role" onchange="toggleFields()" required>
+            <option value="" disabled selected>Выберите...</option>
+            <option value="patient">Пациент</option>
+            <option value="doctor">Врач</option>
+          </select>
+        </div>
+
+        <!-- Общие поля -->
+        <div class="input-group">
+          <label for="lastName">Фамилия</label>
+          <input type="text" id="lastName" name="lastName" placeholder="Введите фамилию" required>
+        </div>
+        <div class="input-group">
+          <label for="firstName">Имя</label>
+          <input type="text" id="firstName" name="firstName" placeholder="Введите имя" required>
+        </div>
+        <div class="input-group">
+          <label for="middleName">Отчество</label>
+          <input type="text" id="middleName" name="middleName" placeholder="Введите отчество">
+        </div>
+
+        <!-- Поля для пациента -->
+        <div id="patientFields" style="display: none;">
+          <div class="input-group">
+            <label for="policy">Полис ОМС</label>
+            <input type="text" id="policy" name="policy" placeholder="Введите номер полиса" required>
+          </div>
+          <div class="input-group">
+            <label for="birthDate">Дата рождения</label>
+            <input type="date" id="birthDate" name="birthDate" required>
+          </div>
+        </div>
+
+        <!-- Поля для врача -->
+        <div id="doctorFields" style="display: none;">
+          <div class="input-group">
+            <label for="specialization">Специальность</label>
+            <input type="text" id="specialization" name="specialization" placeholder="Введите специальность" required>
+          </div>
+          <div class="input-group">
+            <label for="experience">Стаж</label>
+            <input type="number" id="experience" name="experience" placeholder="Введите стаж (в годах)" required>
+          </div>
+        </div>
+
+        <!-- Общие поля для логина и пароля -->
+        <div class="input-group">
+          <label for="username">Логин</label>
+          <input type="text" id="username" name="username" placeholder="Введите логин" required>
+        </div>
+        <div class="input-group">
+          <label for="password">Пароль</label>
+          <input type="password" id="password" name="password" placeholder="Введите пароль" required>
+        </div>
+        <div class="input-group">
+          <label for="confirmPassword">Повторите пароль</label>
+          <input type="password" id="confirmPassword" name="confirmPassword" placeholder="Повторите пароль" required>
+        </div>
+
+        <button type="submit" class="register-btn">Зарегистрироваться</button>
+      </form>
+    </div>
+  </div>
+
+  <script>
+    function toggleFields() {
+      const role = document.getElementById('role').value;
+      const patientFields = document.getElementById('patientFields');
+      const doctorFields = document.getElementById('doctorFields');
+
+      // Отображение полей в зависимости от роли
+      if (role === 'patient') {
+        patientFields.style.display = 'block';
+        doctorFields.style.display = 'none';
+
+        // Установка обязательных полей для пациента
+        document.getElementById('policy').required = true;
+        document.getElementById('birthDate').required = true;
+        document.getElementById('specialization').required = false;
+        document.getElementById('experience').required = false;
+      } else if (role === 'doctor') {
+        doctorFields.style.display = 'block';
+        patientFields.style.display = 'none';
+
+        // Установка обязательных полей для врача
+        document.getElementById('specialization').required = true;
+        document.getElementById('experience').required = true;
+        document.getElementById('policy').required = false;
+        document.getElementById('birthDate').required = false;
+      } else {
+        patientFields.style.display = 'none';
+        doctorFields.style.display = 'none';
+      }
+    }
+  </script>
+</body>
+</html>
